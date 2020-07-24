@@ -1,0 +1,96 @@
+const dropdown = `
+    <option value=" ">None</option>
+    <option value="[[@bo]] Body">Body</option>
+    <option value="[[@sp]] Speed">Speed</option>
+    <option value="[[@mi]] Mind">Mind</option>
+    <option value="[[@wi]] Will">Will</option>
+    <option value="[[@le]] Legacy">Legacy</option>
+    <option value="[[@ca]] Career">Career</option>
+    <option value="[[@aca]] Academics">Academics</option>
+    <option value="[[@ath]] Athletics">Athletics</option>
+    <option value="[[cra]] Craft">Craft</option>
+    <option value="[[@dec]] Deceit">Deceit</option>
+    <option value="[[@end]] Endurance">Endurance</option>
+    <option value="[[@eva]] Evasion">Evasion</option>
+    <option value="[[@fig]] Fighting">Fighting</option>
+    <option value="[[@neg]] Negotiation">Negotiation</option>
+    <option value="[[@obs]] Observation">Observation</option>
+    <option value="[[@pre]] Presence">Presence</option>
+    <option value="[[@psy]] Psyche">Psyche</option>
+    <option value="[[@que]] Questioning">Questioning</option>
+    <option value="[[@sho]] Shooting">Shooting</option>
+    <option value="[[@tac]] Tactics">Tactics</option>
+`
+
+new Dialog
+({
+    title: `Dice Pool`,
+    content:`
+        <form>
+            <div class="form-group">
+                <label>Trait #1:</label>
+                <select id="pool #1" name="skill/stat">
+                    ${dropdown}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Trait #2:</label>
+                <select id="pool #2" name="skill/stat">
+                ${dropdown}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Trait #3:</label>
+                <select id="pool #3" name="skill/stat">
+                ${dropdown}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Trait #4:</label>
+                <select id="pool #4" name="skill/stat">
+                ${dropdown}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Trait #5:</label>
+                <select id="pool #5" name="skill/stat">
+                ${dropdown}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Trait #6:</label>
+                <select id="pool #6" name="skill/stat">
+                ${dropdown}
+                </select>
+            </div>
+<div class="form-group">
+    <input type="text" name="mods"/>
+    <label for="Mods">
+    Bonuses: use [[1dy]]per bonus modifier
+    </label>
+    </div>
+        </form>
+    `,
+    buttons:{
+            yes:{
+                icon: "<i class= 'fas fa-check'></i>",
+                label: 'OK',
+                callback: html => {
+          ChatMessage.create({
+            speaker: ChatMessage.getSpeaker(),
+            content: [html.find('[name="skill/stat"]')[0].value,]+
+                    [html.find('[name="skill/stat"]')[1].value,]+
+                    [html.find('[name="skill/stat"]')[2].value,]+
+                    [html.find('[name="skill/stat"]')[3].value,]+
+                    [html.find('[name="skill/stat"]')[4].value,]+
+                    [html.find('[name="skill/stat"]')[5].value,]+
+                    [html.find('[name="mods"]')[0].value,]
+          });
+          }
+                },
+            no: {
+                icon: "<i class='fas fa-times'></i>",
+                label: `Cancel`
+                },
+    }
+}).render(true);
